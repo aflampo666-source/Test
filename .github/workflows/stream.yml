@@ -1,4 +1,4 @@
-name: 720p Stream with Logo (170 min) trial only
+name: 2K Stream with Logo (170 min) trail only
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
             -itsoffset 30 \
             -i "https://worldcup.dzandz496.workers.dev/BNMAX4KHDR.m3u8" \
             -i logo.png \
-            -filter_complex "[0:v]scale=2560:1440,fps=25[bg];[1:v]scale=180:-1[logo];[bg][logo]overlay=W-w-40:H-h-40" \
+            -filter_complex "[0:v]scale=2560:1440,fps=25[bg];[1:v]scale=270:-1[logo];[bg][logo]overlay=W-w-40:H-h-40" \
             -c:v libx264 \
             -preset ultrafast \
             -tune zerolatency \
