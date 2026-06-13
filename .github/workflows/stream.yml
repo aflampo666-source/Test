@@ -1,4 +1,4 @@
-name: 1080p Stream with Logo (170 min)
+name: A two-and-a-half-hour trial for only
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       duration:
         description: "مدة التشغيل بالدقائق"
         required: true
-        default: "170"
+        default: "120"
 
 jobs:
   stream:
@@ -23,24 +23,21 @@ jobs:
         run: |
           wget -O logo.png https://up6.cc/2026/06/178122590817961.png
 
-      - name: Stream 1080p HDR High Bitrate (Quiet Mode)
+      - name: Stream 1080p HDR (Light Mode)
         run: |
           ffmpeg -re \
-            -loglevel error \
-            -stats \
-            -stats_period 10 \
             -user_agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36" \
             -referer "https://ostora-tv.hima-sabry2015.workers.dev/" \
             -headers "Origin: https://ostora-tv.hima-sabry2015.workers.dev\r\n" \
             -i "https://worldcup.dzandz496.workers.dev/BNMAX4KHDR.m3u8" \
             -i logo.png \
-            -filter_complex "[0:v]scale=1920:1080:flags=lanczos,fps=30,setparams=colorspace=bt2020nc:color_primaries=bt2020:color_trc=smpte2084[bg];[1:v]scale=140:-1[logo];[bg][logo]overlay=W-w-30:H-h-30,format=yuv420p10le" \
+            -filter_complex "[0:v]scale=1920:1080:flags=lanczos,fps=25,setparams=colorspace=bt2020nc:color_primaries=bt2020:color_trc=smpte2084[bg];[1:v]scale=120:-1[logo];[bg][logo]overlay=W-w-30:H-h-30,format=yuv420p10le" \
             -c:v libx264 \
-            -preset medium \
-            -crf 18 \
-            -maxrate 8000k \
-            -bufsize 16000k \
+            -preset veryfast \
+            -crf 21 \
+            -maxrate 6000k \
+            -bufsize 12000k \
             -x264-params "colorprim=bt2020:transfer=smpte2084:colormatrix=bt2020nc:depth=10" \
-            -c:a aac -b:a 192k \
+            -c:a aac -b:a 128k \
             -f flv \
             "rtmp://vsu.okcdn.ru/input/14596556267087_15801691998799_k5vbtvvaju"
