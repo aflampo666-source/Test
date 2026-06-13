@@ -1,4 +1,4 @@
-name: 2K Stream with Logo (170 min) trail only
+name:  Stream with Logo (170 min) trail only
 
 on:
   workflow_dispatch:
