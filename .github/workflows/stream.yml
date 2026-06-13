@@ -1,4 +1,4 @@
-name: A two-and-a-half-hour trial for only
+name: Experience for only 2 and a half
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       duration:
         description: "مدة التشغيل بالدقائق"
         required: true
-        default: "120"
+        default: "170"
 
 jobs:
   stream:
@@ -23,15 +23,17 @@ jobs:
         run: |
           wget -O logo.png https://up6.cc/2026/06/178122590817961.png
 
-      - name: Stream 1080p HDR (Light Mode)
+      - name: Stream 1080p HDR with Large Logo
         run: |
           ffmpeg -re \
+            -loglevel warning \
+            -stats_period 30 \
             -user_agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36" \
             -referer "https://ostora-tv.hima-sabry2015.workers.dev/" \
             -headers "Origin: https://ostora-tv.hima-sabry2015.workers.dev\r\n" \
             -i "https://worldcup.dzandz496.workers.dev/BNMAX4KHDR.m3u8" \
             -i logo.png \
-            -filter_complex "[0:v]scale=1920:1080:flags=lanczos,fps=25,setparams=colorspace=bt2020nc:color_primaries=bt2020:color_trc=smpte2084[bg];[1:v]scale=120:-1[logo];[bg][logo]overlay=W-w-30:H-h-30,format=yuv420p10le" \
+            -filter_complex "[0:v]scale=1920:1080:flags=lanczos,fps=25,setparams=colorspace=bt2020nc:color_primaries=bt2020:color_trc=smpte2084[bg];[1:v]scale=250:-1[logo];[bg][logo]overlay=W-w-50:H-h-50,format=yuv420p10le" \
             -c:v libx264 \
             -preset veryfast \
             -crf 21 \
