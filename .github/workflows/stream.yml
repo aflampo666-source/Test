@@ -1,4 +1,4 @@
-name: Two-hour trial only 
+name: Trial for two hours and 50 minutes only 
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       duration:
         description: "مدة التشغيل بالدقائق"
         required: true
-        default: "120"
+        default: "170"
 
 jobs:
   stream:
@@ -26,6 +26,7 @@ jobs:
       - name: Stream 1080p HDR
         run: |
           ffmpeg -re \
+            -t 8700 \
             -user_agent "Mozilla/5.0" \
             -i "https://worldcup.dzandz496.workers.dev/BNMAX4KHDR.m3u8" \
             -i logo.png \
